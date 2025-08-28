@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marlboro Barbès</title>
+    <!-- On charge Tailwind CSS pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Slab:wght@700&display=swap');
+        
+        body {
+            font-family: 'Roboto Slab', serif;
+            background-color: #0d0d0d;
+            color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Effet de fond avec des images superposées */
+        .background-collage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .background-collage img {
+            position: absolute;
+            opacity: 0.15;
+            filter: grayscale(100%) blur(1px);
+        }
+        
+        /* Images individuelles pour le collage */
+        .image-barbes {
+            top: 10%;
+            left: -5%;
+            width: 50%;
+            transform: rotate(-5deg);
+        }
+        
+        .image-marlboro {
+            bottom: 5%;
+            right: -5%;
+            width: 45%;
+            transform: rotate(3deg);
+        }
+
+        /* Conteneur de l'écran d'entrée */
+        #entry-screen {
+            z-index: 10;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        /* Conteneur principal du contenu */
+        #main-content {
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: none;
+        }
+        
+        #main-content.visible {
+            opacity: 1;
+            display: flex;
+        }
+
+        /* Animation pour le bouton d'entrée */
+        @keyframes pulse-button {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-black text-white flex items-center justify-center min-h-screen relative">
+
+    <!-- Fond d'écran composé d'images symboliques -->
+    <div class="background-collage hidden md:block">
+        <img src="120222742_1755808671241027_5419245867738615840_n.jpg" alt="Image stylisée de Barbès" class="image-barbes">
+        <img src="MQTJRIH3LNA47EECUJMT2HAAHI.avif" alt="Image stylisée d'un paquet de Marlboro" class="image-marlboro">
+    </div>
+
+    <!-- Écran d'entrée avec le bouton "Entrer" -->
+    <div id="entry-screen" class="absolute inset-0 flex flex-col items-center justify-center p-8 z-20">
+        <h1 class="text-6xl md:text-8xl font-bold mb-8 text-center tracking-widest text-red-600 font-['Bebas_Neue']">
+            MARLBORO BARBÈS
+        </h1>
+        <button id="enter-btn" class="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold text-xl rounded-full uppercase transition-all duration-300 transform animate-[pulse-button_2s_infinite]">
+            ENTRER DANS L'UNIVERS
+        </button>
+    </div>
+
+    <!-- Contenu principal qui sera affiché après le clic -->
+    <div id="main-content" class="flex flex-col items-center p-8 bg-gray-900 bg-opacity-80 rounded-2xl shadow-2xl border-4 border-gray-700 z-10 max-w-lg mx-4">
+        
+        <!-- Titre de la chanson -->
+        <h1 class="text-6xl md:text-7xl font-bold mb-4 text-center tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 font-['Bebas_Neue']">
+            MARLBORO BARBÈS
+        </h1>
+        <p class="text-lg md:text-xl font-light mb-8 text-center text-gray-400 uppercase tracking-widest">
+            Le nouveau single est là
+        </p>
+
+        <!-- GIF animé au centre -->
+        <img src="video_2025-08-28_19-41-26.gif" alt="Un GIF de démonstration" class="w-64 h-64 md:w-80 md:h-80 object-cover mb-6 transform transition-transform duration-300 hover:scale-105">
+
+        <!-- Élément audio pour la musique -->
+        <audio id="music-player" loop>
+            <source src="Malboro Barbès.mp3" type="audio/mpeg">
+            Votre navigateur ne supporte pas l'élément audio.
+        </audio>
+    </div>
+    
+    <!-- Script pour la logique -->
+    <script>
+        const entryScreen = document.getElementById('entry-screen');
+        const enterBtn = document.getElementById('enter-btn');
+        const mainContent = document.getElementById('main-content');
+        const musicPlayer = document.getElementById('music-player');
+
+        // Au clic sur le bouton "Entrer dans l'univers"
+        enterBtn.addEventListener('click', () => {
+            // Fait disparaître l'écran d'entrée
+            entryScreen.style.opacity = '0';
+            
+            // Fait disparaître l'écran d'entrée et affiche le contenu principal
+            setTimeout(() => {
+                entryScreen.style.display = 'none';
+                mainContent.classList.add('visible');
+                musicPlayer.play();
+            }, 1000); 
+        });
+    </script>
+</body>
+</html>
